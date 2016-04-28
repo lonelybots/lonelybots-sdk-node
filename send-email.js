@@ -1,11 +1,14 @@
 var ArgumentException = require('./exceptions').ArgumentException
 var Promise = require('bluebird')
+var requestLib = require('request')
 
 // allow dependency injection for testability
-module.exports = function (options, dependencies) {
-  var request = dependencies.request || require('request')
+module.exports = function (options) {
+  return function (email, dependencies) {
+    var request = dependencies && dependencies.request
+      ? dependencies.request
+      : requestLib
 
-  return function (email) {
     if (!email) {
       throw new ArgumentException('email', 'missing required argument')
     }

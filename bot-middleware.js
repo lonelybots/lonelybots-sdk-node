@@ -17,7 +17,7 @@ module.exports = function (options) {
     // GET requests are for ownership validation
     router.get('/', function (req, res, next) {
       if (req.get('authorization') === options.validationToken) {
-        res.send(req.query['challenge'])
+        res.send(req.query['response'])
       } else {
         res.status(401).send('validation token mismatch')
       }
@@ -28,6 +28,7 @@ module.exports = function (options) {
       if (req.get('authorization') === options.validationToken) {
         var mail = req.body
         callback(mail)
+        res.status(200).send('OK')
       } else {
         res.status(401).send('validation token mismatch')
       }
