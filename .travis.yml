@@ -6,4 +6,4 @@ node_js:
 deploy:
   provider: npm
   email: "lonelybots@alotof.io"
-  api_key: "***REMOVED***"
+  api_key: $npm_access_token
