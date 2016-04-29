@@ -1,7 +1,7 @@
-var botMiddleware = require('./bot-middleware')
+var botMiddleware = require('./lib/bot-middleware')
 // var getAttachment = require('./get-attachment')
-var sendEmail = require('./send-email')
-var ArgumentException = require('./exceptions').ArgumentException
+var sendEmail = require('./lib/send-email')
+var ArgumentException = require('./lib/exceptions').ArgumentException
 
 module.exports = function (options) {
   if (!options) {
