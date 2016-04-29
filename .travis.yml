@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "5"
+  - "4"
+  - "0.12"
+deploy:
+  provider: npm
+  email: "lonelybots@alotof.io"
+  api_key: "6d17c9c8-9de6-4086-a5bf-0653d8e2cef6"
