@@ -1,6 +1,6 @@
 {
   "name": "lonelybots-sdk",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "LonelyBots SDK for Node.js.",
   "main": "index.js",
   "scripts": {
