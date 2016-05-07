@@ -1,10 +1,13 @@
 {
   "name": "lonelybots-sdk",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "LonelyBots SDK for Node.js.",
   "main": "index.js",
   "scripts": {
     "test": "standard && mocha **/__test__/*.spec.js"
+  },
+  "engines" : {
+    "node" : ">=4.0.0"
   },
   "files": [
     "index.js",
