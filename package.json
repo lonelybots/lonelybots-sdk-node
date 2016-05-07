@@ -1,6 +1,6 @@
 {
   "name": "lonelybots-sdk",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "LonelyBots SDK for Node.js.",
   "main": "index.js",
   "scripts": {
@@ -39,6 +39,7 @@
     "bluebird": "^3.3.5",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
+    "joi": "^8.0.5",
     "lodash": "^4.11.1",
     "request": "^2.72.0"
   }
