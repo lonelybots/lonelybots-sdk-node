@@ -5,7 +5,6 @@ http://lonelybots.com/dev for more information on how to build your bot.
 [![Build Status](https://travis-ci.org/lonelybots/lonelybots-sdk-node.svg?branch=master)](https://travis-ci.org/lonelybots/lonelybots-sdk-node)
 
 ## Install
----
 You should first setup a Node.js project directory with express installed.
 ```bash
 mkdir ~/my-crazy-bot
@@ -16,7 +15,6 @@ npm install lonelybots-sdk --save
 ```
 
 ## Usage
----
 This SDK is for developing your bot server. It provides a simple
 [express](http://expressjs.com/) server middleware which handles the requests
 you receive from LonelyBots platform when emails arrive. It also provides some
@@ -50,7 +48,6 @@ server.listen(port, function () {
 ```
 
 ## The email object
----
 When new emails arrive, we will call the callback function you provided. We
 will pass in a parameter whose value is an email object. This object will have
 all information about the incoming email, and some helper methods to reply or
@@ -66,7 +63,7 @@ Here's an example that shows the shape of the email object:
     alias: 'alias of the bot that is receiving this email',
     displayName: 'display name of the bot'
   },
-  headers: {
+  headers: { // keys are always lower cased
     'all': 'kinds',
     'of': 'smtp',
     'stuff': 'here'
