@@ -91,8 +91,27 @@ Here's an example that shows the shape of the email object:
       address: 'others@gmail.com'
     }
   ],
+  cc: [
+    {
+      name: 'CCed People',
+      address: 'cced@gmail.com'
+    }
+  ],
+  bcc: [
+    {
+      name: 'BCCed People',
+      address: 'bcced@gmail.com'
+    }
+  ],
   text: 'text version of the email content',
   html: '<html>html version of the email content</html>',
+  form: { // available if this is a dynamic form submission instead of a real email.
+    title: 'Title of the form submitted',
+    data: {
+      field1: 'value of field1',
+      field2: 'value of field2'
+    }
+  },
   inReplyTo: 'message-id of the email that this one is replying to',
   attachments: [
     contentType: 'image/png',
@@ -102,4 +121,99 @@ Here's an example that shows the shape of the email object:
     generatedFileName: 'image.png' // usually the same as fileName
   ]
 }
+```
+
+There are also some helper methods for replying the email.
+
+## email.replyAll()
+This method sends a reply to all people in the original email.
+```javascript
+email.replyAll({
+  subject: 'by default would be "RE: original subject"', // optional
+  text: 'text version of the reply content', // required
+  html: 'html version of the reply content', // optional
+  attachments: [ // optional
+    {
+      fileName: 'image.png',
+      contentId: 'image001',
+      contentType: 'image/png',
+      content: new Buffer(/* content must be a Buffer object */)
+    }
+  ]
+})
+
+// or, just simply pass in a string
+email.replyAll('this is a shortcut to replyAll with just some text')
+```
+
+## email.reply()
+This method sends a reply only to the sender of the original email.
+```javascript
+email.reply({
+  subject: 'by default would be "RE: original subject"', // optional
+  text: 'text version of the reply content', // required
+  html: 'html version of the reply content', // optional
+  attachments: [ // optional
+    {
+      fileName: 'image.png',
+      contentId: 'image001',
+      contentType: 'image/png',
+      content: new Buffer(/* content must be a Buffer object */)
+    }
+  ]
+})
+
+// or, just simply pass in a string
+email.reply('this is a shortcut to reply with just some text')
+```
+
+## email.createForm()
+This method creates a dynamic form, just like the one dev bot gave you for
+filling in the bot information. The function returns a Promise.
+```javascript
+email.createForm({
+  title: 'Payment Info', // required
+  fields: {
+    firstName: {
+      display: 'First Name', // required
+      description: 'Please enter your first name here', // optional
+      type: 'string' // optional. only string is supported at this time
+    },
+    lastName: {
+      display: 'Last Name'
+    }
+  }
+}).then(function (formUrl) {
+  email.replyAll('please go fill out your payment info at ' + formUrl)
+})
+```
+Once the user filled out and submitted the form, your bot will get an incoming
+email with the property "form" available. you can get what the user filled in
+for each field from the email.form object.
+```javascript
+if (email.form) {
+  switch (email.form.title) {
+    default:
+      // deal with unknown form submission, which is an error
+      break
+    case 'Payment Info':
+      // deal with payment info submission
+      console.log(email.form.data.firstName)
+      console.log(email.form.data.lastName)
+      break
+  }
+} else {
+  // deal with a normal email
+}
+```
+
+## email.attachments[i].get()
+This method helps you get the content of an email attachment. It returns a
+Promise.
+```javascript
+email.attachments[0].get().then(function (data) {
+  console.log(data.body) // can be a string or a Buffer object
+}).catch(function (error) {
+  console.log(error)
+})
 ```
